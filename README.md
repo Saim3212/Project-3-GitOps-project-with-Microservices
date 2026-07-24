@@ -57,3 +57,7 @@ Frontend Service: Renders the beautiful UI that shoppers actually interact with.
 
 ## $${\color{Red} \textbf{How They Talk to Each Other} \ \}$$
 Because these services live independently, they need efficient ways to chat. When a user clicks "Buy Now", a quick web request (via REST or gRPC) travels from the Frontend to the Order Service, which instantly pings the Payment Service. For background tasks—like sending a confirmation email—the app uses background message queues like Kafka or RabbitMQ so the user doesn't have to sit around waiting for a screen to load.
+
+<img width="1451" height="1150" alt="image" src="https://github.com/user-attachments/assets/9a2e33dc-0e40-4026-bce6-3b9687c0e1e5" />
+
+
