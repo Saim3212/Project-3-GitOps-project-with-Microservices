@@ -92,3 +92,91 @@ AWS CLI is needed to connect your AWS account within your local machine to integ
 aws configure can  be used to log in the account 
 
 <img width="507" height="116" alt="image" src="https://github.com/user-attachments/assets/13d3d6e6-d9c3-48e0-ba7e-1c70135b3f5d" />
+
+## $${\color{Red} \textbf{ArgoCd Configure} \ \}$$
+
+Installation Commands
+```
+kubectl create namespace argocd
+```
+```
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+```
+watch kubectl get pods -n argocd
+```
+```
+sudo curl --silent --location -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/v2.4.7/argocd-linux-amd64
+```
+```
+sudo chmod +x /usr/local/bin/argocd
+```
+```
+kubectl get svc -n argocd
+```
+```
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
+```
+```
+kubectl get svc -n argocd
+```
+Change the Inbound Rules in security for the 2 Wanderlust instances as well
+
+<img width="657" height="453" alt="image" src="https://github.com/user-attachments/assets/f075382a-075a-403a-b4f7-2876d79ccf15" />
+<img width="1613" height="484" alt="image" src="https://github.com/user-attachments/assets/5ac68283-8113-421b-b9b8-d2aa1b7462b1" />
+
+To get password paste in 
+
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
+
+for adding Repo 
+<img width="2032" height="370" alt="image" src="https://github.com/user-attachments/assets/d041fa89-a66c-422f-bddf-b3627179a192" />
+Add in given options
+<img width="908" height="817" alt="image" src="https://github.com/user-attachments/assets/0fc7da7e-fbdc-43b1-9ba6-fff90865e228" />
+
+Add in SonarQube in Jenkins
+
+Link in the URL from SonarQube
+<img width="773" height="886" alt="image" src="https://github.com/user-attachments/assets/836473b3-683b-492d-8f41-f43fea832a57" />
+
+Add in commands to push the git repo
+
+```
+git add .
+```
+```
+git commit -m "update instance id" 
+```
+Login Argo inside Instance Change the IP according to the Argo IP 
+```
+ argocd login 52.53.156.187:32738 --username admin
+```
+<img width="1353" height="127" alt="image" src="https://github.com/user-attachments/assets/1d965e0d-2950-47b9-9f06-99e9c50935ac" />
+<img width="528" height="125" alt="image" src="https://github.com/user-attachments/assets/d4667e5e-ece1-4d2d-9159-05eaf9e7a47a" />
+
+get Argo Cluster List with Command
+```
+kubectl config get-contexts
+```
+edit the Cluster Command according to the name of the cluster and the Cluster name 
+```
+argocd cluster add Wanderlust@wanderlust.us-west-1.eksctl.io --name wanderlust-eks-cluster
+```
+<img width="1883" height="170" alt="image" src="https://github.com/user-attachments/assets/d58754bc-a100-4f0b-b790-477b98d31409" />
+Once made , it should reflect within ArgoCD
+<img width="2005" height="516" alt="image" src="https://github.com/user-attachments/assets/bd349ca0-64a7-407a-9abc-ecbf31161987" />
+
+Create new application within Argo CD
+<img width="2538" height="1221" alt="image" src="https://github.com/user-attachments/assets/3facbd0f-0356-4d86-984a-c8e9befd9ab0" />
+
+And the application should now be active and healthy 
+<img width="676" height="560" alt="image" src="https://github.com/user-attachments/assets/289b9c5e-1d29-48c1-951a-8b6e2dc47d94" />
+make path as
+```
+ kubernetes
+```
+<img width="1997" height="1195" alt="image" src="https://github.com/user-attachments/assets/fc6eb94b-532a-453a-91fe-2353bd4e0708" />
+
+
